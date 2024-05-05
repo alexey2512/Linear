@@ -4,13 +4,6 @@ import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
 
-/**
- This class is designed to perform various operations on vectors.
- All methods of the class are static, it is impossible to create an instance of this class, and it is also impossible to extend it.
- Some methods change arguments by reference, some do not, read more about this in the documentation attached to a specific method.
- Each method pre-checks the passed arguments to ensure that they are not null using the {@link java.util.Objects#requireNonNull Objects.requireNonNull} method.
- */
-
 public final class Vectors {
 
     private Vectors() {}

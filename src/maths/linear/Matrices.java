@@ -13,8 +13,8 @@ public final class Matrices {
     private Matrices() {}
 
     private static Vector getRowColumn(Matrix matrix, int k, boolean isRow) {
-        Vector result = new ArrayVector(matrix.width());
-        for (int i = 0; i < matrix.width(); i++) {
+        Vector result = new ArrayVector(isRow ? matrix.width() : matrix.height());
+        for (int i = 0; i < result.size(); i++) {
             result.set(i, matrix.get(isRow ? k : i, isRow ? i : k));
         }
         return result;
