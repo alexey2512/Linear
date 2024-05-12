@@ -174,11 +174,9 @@ public abstract class AbstractListTensor implements Tensor {
     @Override
     @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
-        if (obj.getClass() == this.getClass()) {
-            AbstractListTensor tensor = (AbstractListTensor) obj;
-            if (rank == tensor.rank && Arrays.equals(sizes, tensor.sizes)) {
-                return recursiveEquals((List<Object>) list, (List<Object>) tensor.list, 0);
-            }
+        if (obj instanceof AbstractListTensor tensor) {
+            return rank == tensor.rank && Arrays.equals(sizes, tensor.sizes)
+                    && recursiveEquals((List<Object>) list, (List<Object>) tensor.list, 0);
         }
         return false;
     }
@@ -192,5 +190,4 @@ public abstract class AbstractListTensor implements Tensor {
         }
         return result;
     }
-
 }
