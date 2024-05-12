@@ -7,5 +7,4 @@ public class SensitiveListTensor extends AbstractListTensor {
     public SensitiveListTensor(List<?> list) {
         super(list, false);
     }
-
 }

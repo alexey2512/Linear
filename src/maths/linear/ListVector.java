@@ -82,5 +82,4 @@ public class ListVector extends AbstractVector {
     public int hashCode() {
         return Objects.hash(list, size);
     }
-
 }

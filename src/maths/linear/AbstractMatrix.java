@@ -1,17 +1,13 @@
 package maths.linear;
 
 import org.jetbrains.annotations.NotNull;
+
 import java.util.Iterator;
 
 public abstract class AbstractMatrix implements MutableMatrix {
 
-    @Override
-    public void clear() {
-        for (int i = 0; i < height(); i++) {
-            for (int j = 0; j < width(); j++) {
-                set(i, j, 0);
-            }
-        }
+    public @NotNull Iterator<Double> iterator() {
+        return new CustomIterator();
     }
 
     @Override
@@ -31,8 +27,8 @@ public abstract class AbstractMatrix implements MutableMatrix {
     @Override
     public boolean equals(Object object) {
         if (this.getClass() == object.getClass() &&
-        height() == ((Matrix) object).height() &&
-        width() == ((Matrix) object).width()) {
+                height() == ((Matrix) object).height() &&
+                width() == ((Matrix) object).width()) {
             Asserts.checkMatrixAccess((Matrix) object);
             for (int i = 0; i < height(); i++) {
                 for (int j = 0; j < width(); j++) {
@@ -46,8 +42,13 @@ public abstract class AbstractMatrix implements MutableMatrix {
         return false;
     }
 
-    public @NotNull Iterator<Double> iterator() {
-        return new CustomIterator();
+    @Override
+    public void clear() {
+        for (int i = 0; i < height(); i++) {
+            for (int j = 0; j < width(); j++) {
+                set(i, j, 0);
+            }
+        }
     }
 
     private class CustomIterator implements Iterator<Double> {
@@ -76,5 +77,4 @@ public abstract class AbstractMatrix implements MutableMatrix {
             return result;
         }
     }
-
 }

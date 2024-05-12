@@ -39,5 +39,4 @@ public interface MutabledVector extends Vector {
     default void vectorXScalar(double scalar) {
         applyForEach((a) -> a * scalar);
     }
-
 }

@@ -28,5 +28,4 @@ public class ListTensor extends AbstractListTensor {
         }
         return list;
     }
-
 }

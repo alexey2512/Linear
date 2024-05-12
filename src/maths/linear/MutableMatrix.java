@@ -47,5 +47,4 @@ public interface MutableMatrix extends Matrix {
     default void matrixXScalar(double scalar) {
         applyForEach((a) -> a * scalar);
     }
-
 }

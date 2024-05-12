@@ -1,10 +1,9 @@
-import maths.linear.*;
-
 import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
+        @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
         List<List<List<Double>>> lst = new ArrayList<>();
         List<List<Double>> t1 = new ArrayList<>();
         t1.add(List.of(1d, 2d, 3d));

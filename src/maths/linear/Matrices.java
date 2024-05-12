@@ -1,16 +1,15 @@
 package maths.linear;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
 
 public final class Matrices {
 
-    private Matrices() {}
+    private Matrices() {
+    }
 
     private static Vector getRowColumn(Matrix matrix, int k, boolean isRow) {
         Vector result = new ArrayVector(isRow ? matrix.width() : matrix.height());
@@ -205,8 +204,8 @@ public final class Matrices {
     private static void applyLinearCombination(Matrix matrix, double scalar, int row, int col) {
         setRow(matrix, row,
                 Vectors.subtract(
-                    getRow(matrix, row),
-                    Vectors.vectorXScalar(getRow(matrix, col), scalar)));
+                        getRow(matrix, row),
+                        Vectors.vectorXScalar(getRow(matrix, col), scalar)));
     }
 
     public static double determinant(Matrix matrix) {

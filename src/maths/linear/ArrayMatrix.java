@@ -84,7 +84,6 @@ public class ArrayMatrix extends AbstractMatrix {
                 array[i][j] = buildAsRows ? vectors[i].get(j) : vectors[j].get(i);
             }
         }
-
     }
 
     private static void error(String message) {
@@ -125,5 +124,4 @@ public class ArrayMatrix extends AbstractMatrix {
     public int hashCode() {
         return Objects.hash(Arrays.deepHashCode(array), height, width);
     }
-
 }

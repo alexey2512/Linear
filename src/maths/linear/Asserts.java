@@ -63,5 +63,4 @@ public final class Asserts {
     private static void error(String message) {
         throw new IllegalArgumentException(message);
     }
-
 }

@@ -6,7 +6,8 @@ import java.util.function.UnaryOperator;
 
 public final class Vectors {
 
-    private Vectors() {}
+    private Vectors() {
+    }
 
     public static void swap(Vector vector, int i, int j) {
         double temp = vector.get(i);
@@ -200,5 +201,4 @@ public final class Vectors {
         }
         return false;
     }
-
 }
