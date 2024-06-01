@@ -1,5 +1,10 @@
 package maths.linear;
 
+import maths.exceptions.AccessException;
+import maths.exceptions.InvalidObjectException;
+import maths.linear.matrices.Matrix;
+import maths.linear.vectors.Vector;
+
 import java.util.Objects;
 
 public final class Asserts {
@@ -16,13 +21,13 @@ public final class Asserts {
         Objects.requireNonNull(vector);
         int size = vector.size();
         if (size <= 0) {
-            error("found vector with non positive size = " + size);
+            invError("found vector with non positive size = " + size);
         }
         for (int i = 0; i < size; i++) {
             try {
                 vector.get(i);
             } catch (Throwable e) {
-                error("invalid vector found: can not get value from i = " + i + " for size " + size);
+                accError("invalid vector found: can not get value from i = " + i + " for size " + size);
             }
         }
     }
@@ -38,16 +43,16 @@ public final class Asserts {
         int height = matrix.height();
         int width = matrix.width();
         if (height <= 0) {
-            error("found matrix with non positive height = " + height);
+            invError("found matrix with non positive height = " + height);
         } else if (width <= 0) {
-            error("found matrix with non positive width = " + width);
+            invError("found matrix with non positive width = " + width);
         }
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 try {
                     matrix.get(i, j);
                 } catch (Throwable e) {
-                    error("invalid matrix found: can not get value from i = " + i + ", j = " + j +
+                    accError("invalid matrix found: can not get value from i = " + i + ", j = " + j +
                             " for sizes (" + height + ", " + width + ")");
                 }
             }
@@ -60,8 +65,11 @@ public final class Asserts {
         }
     }
 
-    private static void error(String message) {
-        throw new IllegalArgumentException(message);
+    private static void accError(String message) {
+        throw new AccessException(message);
     }
 
+    private static void invError(String message) {
+        throw new InvalidObjectException(message);
+    }
 }

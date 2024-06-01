@@ -1,4 +1,4 @@
-package maths.linear;
+package maths.linear.vectors;
 
 public interface Vector extends Iterable<Double> {
 

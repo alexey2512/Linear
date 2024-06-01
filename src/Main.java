@@ -1,16 +1,14 @@
-import maths.linear.*;
+import maths.linear.tensors.ListTensor;
+import maths.linear.tensors.Tensor;
+import maths.linear.tensors.Tensors;
 
-import java.util.*;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
-        List<List<List<Double>>> lst = new ArrayList<>();
-        List<List<Double>> t1 = new ArrayList<>();
-        t1.add(List.of(1d, 2d, 3d));
-        List<List<Double>> t2 = new ArrayList<>();
-        t2.add(List.of(4d, 5d, 6d));
-        lst.add(t1);
-        lst.add(t2);
+        Tensor a = new ListTensor(List.of(1d, 2d));
+        Tensor b = new ListTensor(List.of(1d, 2d, 1d));
+        System.out.println(Tensors.tensorMultiply(a, b));
     }
 }

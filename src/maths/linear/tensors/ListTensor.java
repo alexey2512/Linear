@@ -1,4 +1,6 @@
-package maths.linear;
+package maths.linear.tensors;
+
+import maths.linear.tensors.AbstractListTensor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,5 +30,4 @@ public class ListTensor extends AbstractListTensor {
         }
         return list;
     }
-
 }

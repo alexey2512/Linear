@@ -1,16 +1,20 @@
-package maths.linear;
+package maths.linear.vectors;
 
-public class SensitiveArrayVector extends AbstractVector {
+import maths.linear.vectors.AbstractVector;
 
-    private final double[] array;
+import java.util.List;
+
+public class SensitiveListVector extends AbstractVector {
+
+    private final List<Double> list;
     private final int size;
 
-    public SensitiveArrayVector(double[] array) {
-        if (array.length == 0) {
+    public SensitiveListVector(List<Double> list) {
+        if (list.isEmpty()) {
             error("can not create vector from empty array");
         }
-        this.size = array.length;
-        this.array = array;
+        this.list = list;
+        this.size = list.size();
     }
 
     private static void error(String message) {
@@ -26,13 +30,13 @@ public class SensitiveArrayVector extends AbstractVector {
     @Override
     public void set(int index, double value) {
         check(index);
-        array[index] = value;
+        list.set(index, value);
     }
 
     @Override
     public double get(int index) {
         check(index);
-        return array[index];
+        return list.get(index);
     }
 
     @Override

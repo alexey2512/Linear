@@ -1,4 +1,6 @@
-package maths.linear;
+package maths.linear.tensors;
+
+import maths.linear.tensors.AbstractListTensor;
 
 import java.util.List;
 

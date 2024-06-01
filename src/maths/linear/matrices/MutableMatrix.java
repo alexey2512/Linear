@@ -1,4 +1,7 @@
-package maths.linear;
+package maths.linear.matrices;
+
+import maths.linear.Asserts;
+import maths.linear.matrices.Matrix;
 
 import java.util.Objects;
 import java.util.function.BinaryOperator;

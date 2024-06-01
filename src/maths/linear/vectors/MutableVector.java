@@ -1,9 +1,9 @@
-package maths.linear;
+package maths.linear.vectors;
 
 import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
 
-public interface MutabledVector extends Vector {
+public interface MutableVector extends Vector {
 
     default void applyElementByElement(Vector vector, BinaryOperator<Double> operator) {
         if (size() != vector.size()) {

@@ -1,4 +1,6 @@
-package maths.linear;
+package maths.linear.vectors;
+
+import maths.linear.vectors.AbstractVector;
 
 import java.util.*;
 

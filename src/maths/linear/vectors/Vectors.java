@@ -1,4 +1,8 @@
-package maths.linear;
+package maths.linear.vectors;
+
+import maths.linear.matrices.ArrayMatrix;
+import maths.linear.matrices.Matrices;
+import maths.linear.matrices.Matrix;
 
 import java.util.*;
 import java.util.function.BinaryOperator;
@@ -63,7 +67,7 @@ public final class Vectors {
     }
 
     public static Vector subVector(Vector vector, int start, int end) {
-        if (start < 0 || start > vector.size() || end < 0 || end > vector.size() || start > end) {
+        if (start < 0 || start > vector.size() || end < 0 || end > vector.size() || start >= end) {
             throw new IllegalArgumentException("incorrect start and end bounds for vector.size = " + vector.size() + ": start = " + start + ", end = " + end);
         }
         Vector result = new ArrayVector(end - start);

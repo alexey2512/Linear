@@ -1,4 +1,4 @@
-package maths.linear;
+package maths.linear.vectors;
 
 import java.util.*;
 

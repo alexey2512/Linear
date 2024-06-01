@@ -1,4 +1,4 @@
-package maths.linear;
+package maths.linear.matrices;
 
 import java.util.Iterator;
 

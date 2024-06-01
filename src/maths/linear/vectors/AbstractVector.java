@@ -1,9 +1,10 @@
-package maths.linear;
+package maths.linear.vectors;
 
+import maths.linear.Asserts;
 import org.jetbrains.annotations.NotNull;
 import java.util.Iterator;
 
-public abstract class AbstractVector implements MutabledVector {
+public abstract class AbstractVector implements MutableVector {
 
     @Override
     public void clear() {

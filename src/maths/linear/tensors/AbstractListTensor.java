@@ -1,9 +1,9 @@
-package maths.linear;
+package maths.linear.tensors;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import maths.exceptions.InitializationException;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.*;
 
 public abstract class AbstractListTensor implements Tensor {
 
@@ -12,26 +12,38 @@ public abstract class AbstractListTensor implements Tensor {
     private final int rank;
 
     protected AbstractListTensor(int... sizes) {
+        checkSizes(sizes);
         this.sizes = sizes;
         rank = sizes.length;
         list = generate(sizes, 0, rank);
     }
 
     @SuppressWarnings("unchecked")
-    protected AbstractListTensor(List<?> list, boolean withCopy) {
+    protected AbstractListTensor(List<?> srcList, boolean withCopy) {
         List<Integer> tempSizes = new ArrayList<>();
-        rank = getRankAndSizes(list, 1, tempSizes);
-        checkList(list, 1, rank, tempSizes);
+        rank = getRankAndSizes(srcList, 1, tempSizes);
+        checkList(srcList, 1, rank, tempSizes);
         sizes = new int[rank];
         for (int i = 0; i < rank; i++) {
             sizes[i] = tempSizes.get(i);
         }
         if (withCopy) {
             List<?> newList = generate(sizes, 0, rank);
-            assignAll((List<Object>) list, (List<Object>) newList, 0, sizes);
-            list = newList;
+            assignAll((List<Object>) srcList, (List<Object>) newList, 0, sizes);
+            srcList = newList;
         }
-        this.list = list;
+        list = srcList;
+    }
+
+    private static void checkSizes(int[] sizes) {
+        if (sizes.length == 0) {
+            initError("can not create tensor from empty sizes");
+        }
+        for (int i = 0; i < sizes.length; i++) {
+            if (sizes[i] <= 0) {
+                initError("can not create tensor when size on depth = " + i + " is " + sizes[i]);
+            }
+        }
     }
 
     private static List<?> generate(int[] sizes, int level, int rank) {
@@ -44,7 +56,7 @@ public abstract class AbstractListTensor implements Tensor {
 
     private static int getRankAndSizes(List<?> list, int level, List<Integer> sizes) {
         if (list.isEmpty()) {
-            error("found empty list at depth = " + (level - 1));
+            initError("found empty list at depth = " + (level - 1));
         }
         sizes.add(list.size());
         Class<?> clazz = list.getFirst().getClass();
@@ -53,22 +65,22 @@ public abstract class AbstractListTensor implements Tensor {
         } else if (List.class.isAssignableFrom(clazz)) {
             return getRankAndSizes((List<?>) list.getFirst(), level + 1, sizes);
         } else {
-            error("expected types List and Double, but found instance of " + clazz + " at depth = " + level);
+            initError("expected types List and Double, but found instance of " + clazz + " at depth = " + level);
         }
         return 0;
     }
 
     private static void checkList(List<?> list, int level, int rank, List<Integer> sizes) {
         if (list.isEmpty()) {
-            error("found empty list at depth = " + (level - 1));
+            initError("found empty list at depth = " + (level - 1));
         } else if (list.size() != sizes.get(level - 1)) {
-            error("expected list with size = " + sizes.get(level - 1)
+            initError("expected list with size = " + sizes.get(level - 1)
                     + ", but found list with size = " + list.size() + " at depth = " + (level - 1));
         }
         for (Object element : list) {
             Class<?> clazz = level == rank ? Double.class : List.class;
             if (!clazz.isAssignableFrom(element.getClass())) {
-                error("expected instance of " + clazz + ", but found instance of "
+                initError("expected instance of " + clazz + ", but found instance of "
                         + element.getClass() + " at depth = " + level);
             }
             if (level < rank) {
@@ -88,17 +100,21 @@ public abstract class AbstractListTensor implements Tensor {
         }
     }
 
-    private static void error(String message) {
+    private static void initError(String message) {
+        throw new InitializationException(message);
+    }
+
+    private static void illError(String message) {
         throw new IllegalArgumentException(message);
     }
 
     private void check(int[] indexes) {
         if (indexes.length != rank) {
-            error("invalid number of indexes: expected " + rank + ", actual " + indexes.length);
+            illError("invalid number of indexes: expected " + rank + ", actual " + indexes.length);
         }
         for (int i = 0; i < rank; i++) {
             if (indexes[i] < 0 || indexes[i] >= sizes[i]) {
-                error("index = " + indexes[i] + " out of bounds for size = " + sizes[i] + " at depth = " + i);
+                illError("index = " + indexes[i] + " out of bounds for size = " + sizes[i] + " at depth = " + i);
             }
         }
     }
@@ -154,10 +170,10 @@ public abstract class AbstractListTensor implements Tensor {
             for (int i = 0; i < sizes[level]; i++) {
                 arr.set(i, 0d);
             }
-            return;
-        }
-        for (int i = 0; i < sizes[level]; i++) {
-            recursiveClear((List<Object>) arr.get(i), level + 1);
+        } else {
+            for (int i = 0; i < sizes[level]; i++) {
+                recursiveClear((List<Object>) arr.get(i), level + 1);
+            }
         }
     }
 
@@ -193,4 +209,42 @@ public abstract class AbstractListTensor implements Tensor {
         return result;
     }
 
+    @Override
+    public @NotNull Iterator<Double> iterator() {
+        return new CustomIterator();
+    }
+
+    private class CustomIterator implements Iterator<Double> {
+
+        private final int[] currentIndexes;
+        private boolean hasNext;
+
+        private CustomIterator() {
+            currentIndexes = new int[rank];
+            hasNext = true;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return hasNext;
+        }
+
+        @Override
+        public Double next() {
+            double result = get(currentIndexes);
+            int i = rank - 1;
+            while (i >= 0 && currentIndexes[i] == sizes[i] - 1) {
+                i--;
+            }
+            if (i == -1) {
+                hasNext = false;
+                return result;
+            }
+            currentIndexes[i]++;
+            for (int j = i + 1; j < rank; j++) {
+                currentIndexes[j] = 0;
+            }
+            return result;
+        }
+    }
 }

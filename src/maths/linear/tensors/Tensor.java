@@ -1,6 +1,6 @@
-package maths.linear;
+package maths.linear.tensors;
 
-public interface Tensor {
+public interface Tensor extends Iterable<Double> {
 
     void set(double value, int... indexes);
 
