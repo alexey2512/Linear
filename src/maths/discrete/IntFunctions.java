@@ -45,61 +45,6 @@ public final class IntFunctions {
         return result;
     }
 
-    public static boolean isPrime(int number) {
-        if (number < 0) {
-            number = -number;
-        }
-        for (int i = 2; i <= Math.sqrt(number); i++) {
-            if (number % i == 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static List<Integer> primesFromDiapason(int start, int end) {
-        if (end <= start) {
-            iaeError("can not get primes from diapason: [ " + start + " ; " + end + " )");
-        }
-        boolean[] flags = new boolean[end];
-        Arrays.fill(flags, true);
-        for (int i = 2; i < end; i++) {
-            if (flags[i]) {
-                for (int j = 2 * i; j < end; j += i) {
-                    flags[j] = false;
-                }
-            }
-        }
-        List<Integer> result = new ArrayList<>();
-        for (int i = Math.max(start, 2); i < end; i++) {
-            if (flags[i]) {
-                result.add(i);
-            }
-        }
-        return result;
-    }
-
-    public static List<Integer> toPrimeDivisors(int number) {
-        if (number <= 0) {
-            iaeError("can not decompose into primes non positive number: " + number);
-        }
-        List<Integer> primes = primesFromDiapason(0, number);
-        if (number == Integer.MAX_VALUE) {
-            primes.add(Integer.MAX_VALUE);
-        }
-        List<Integer> result = new ArrayList<>();
-        int index = 0;
-        while (number != 1) {
-            int divisor = primes.get(index);
-            while (number % divisor == 0) {
-                number /= divisor;
-                result.add(divisor);
-            }
-            index++;
-        }
-        return result;
-    }
-
     public static int gcd(int a, int b) {
         if (a < 0 || b < 0) {
             iaeError("can not get gcd when one of numbers is negative: a = " + a + ", b = " + b);
