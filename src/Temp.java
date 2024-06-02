@@ -2,8 +2,7 @@ import maths.linear.matrices.ArrayMatrix;
 import maths.linear.matrices.Matrices;
 import maths.linear.matrices.Matrix;
 
-public class Main {
-
+public class Temp {
     public static void main(String[] args) {
         Matrix T = new ArrayMatrix(new double[][]{
                 {1, 3, 1},
