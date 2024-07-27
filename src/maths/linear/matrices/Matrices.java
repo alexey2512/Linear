@@ -3,8 +3,6 @@ package maths.linear.matrices;
 import maths.linear.vectors.Vector;
 import maths.linear.vectors.Vectors;
 import maths.linear.vectors.ArrayVector;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +97,6 @@ public final class Matrices {
         return result;
     }
 
-    @Contract("_ -> new")
     public static  Vector asVector( Matrix matrix) {
         List<Double> list = new ArrayList<>();
         for (double x : matrix) {

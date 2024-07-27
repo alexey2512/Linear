@@ -1,7 +1,5 @@
 package maths.discrete;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -20,7 +18,6 @@ public class Combinations implements Iterable<int[]> {
         this.k = k;
     }
 
-    @NotNull
     @Override
     public Iterator<int[]> iterator() {
         return new CustomIterator();

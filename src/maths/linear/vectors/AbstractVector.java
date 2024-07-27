@@ -2,6 +2,7 @@ package maths.linear.vectors;
 
 import maths.linear.Asserts;
 import org.jetbrains.annotations.NotNull;
+
 import java.util.Iterator;
 
 public abstract class AbstractVector implements MutableVector {
@@ -38,7 +39,7 @@ public abstract class AbstractVector implements MutableVector {
         return false;
     }
 
-    public @NotNull Iterator<Double> iterator() {
+    public Iterator<Double> iterator() {
         return new CustomIterator();
     }
 
@@ -56,7 +57,7 @@ public abstract class AbstractVector implements MutableVector {
         }
 
         @Override
-        public Double next() {
+        public @NotNull Double next() {
             return get(position++);
         }
     }
