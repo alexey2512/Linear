@@ -1,7 +1,5 @@
 package maths.discrete;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -16,7 +14,7 @@ public class Permutations implements Iterable<int[]> {
         this.size = size;
     }
 
-    public @NotNull Iterator<int[]> iterator() {
+    public Iterator<int[]> iterator() {
         return new CustomIterator();
     }
 

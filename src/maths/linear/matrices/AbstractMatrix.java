@@ -3,7 +3,6 @@ package maths.linear.matrices;
 import maths.exceptions.InitializationException;
 import maths.linear.vectors.Vector;
 import maths.linear.Asserts;
-import org.jetbrains.annotations.NotNull;
 import java.util.Iterator;
 import java.util.List;
 
@@ -150,7 +149,7 @@ public abstract class AbstractMatrix implements MutableMatrix {
         return false;
     }
 
-    public @NotNull Iterator<Double> iterator() {
+    public Iterator<Double> iterator() {
         return new CustomIterator();
     }
 

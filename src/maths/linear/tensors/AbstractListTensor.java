@@ -1,7 +1,6 @@
 package maths.linear.tensors;
 
 import maths.exceptions.InitializationException;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -210,7 +209,7 @@ public abstract class AbstractListTensor implements Tensor {
     }
 
     @Override
-    public @NotNull Iterator<Double> iterator() {
+    public Iterator<Double> iterator() {
         return new CustomIterator();
     }
 

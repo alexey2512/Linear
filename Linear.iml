@@ -10,10 +10,12 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/24.0.0/annotations-24.0.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/annotations-24.0.0.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.ideaLibSources/annotations-24.0.0-sources.jar!/" />
+        </SOURCES>
       </library>
     </orderEntry>
   </component>
